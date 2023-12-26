@@ -1,0 +1,8 @@
+<!-- new_page.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Welcome to the Banking Website</h2>
+                <a class="btn btn-primary" href="{% url 'banking_app:register_form' %}">Click here for Registration</a>
+{% endblock %}

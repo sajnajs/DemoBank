@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<p>{{ message }}</p>
+<div class="container">
+  <div class="register-box">
+    <h2>Register</h2>
+    <form method="post" action="{% url 'banking_app:submit_form' %}">
+        {% csrf_token %}
+        <label>
+            <input type="text" name="name" placeholder="Full Name">
+        </label><br>
+        <label>
+            <input type="date" name="dob" placeholder="Date of Birth">
+        </label><br>
+        <label>
+            <input type="number" name="age" placeholder="Age">
+        </label><br>
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+            <option value=""></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br>
+        <label for="countryCode"></label>
+        <select id="countryCode" name="countryCode">
+            <option value="+1">(+1)</option>
+            <option value="+44">(+44)</option>
+            <option value="+91">(+91)</option>
+        </select>
+        <label for="phoneNumber"></label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="phone number" pattern="[0-9]{10}" maxlength="10"><br>
+        <label>
+            <input type="email" name="email" placeholder="Email ID">
+        </label><br>
+        <label>
+            <input type="text" name="address" placeholder="Residential Address">
+        </label><br>
+            <label for="district">Select District:</label>
+        <select id="district" onchange="populateBranches()">
+            <option value="" selected disabled>Select District</option>
+            <option value="district1">Trivandrum</option>
+            <option value="district2">Ernakulam</option>
+            <option value="district3">Kollam</option>
+            <option value="district4">Wayanad</option>
+            <option value="district5">Kottayam</option>
+            <option value="district6">Kozhikode</option>
+        </select><br>
+        <label for="branch">Select Branch:</label>
+        <select id="branch" name="branch">
+            <option value="" selected disabled>Select Branch</option>
+        </select><br>
+        <label for="account_name">Account Type:</label>
+        <select id="account_name" name="account_name">
+            <option value=""></option>
+            <option value="savings">Savings Account</option>
+            <option value="current">Current Account</option>
+            <option value="joint">Joint Account</option>
+            <option value="nri">NRI Account</option>
+        </select><br>
+        <label>Materials Provide:</label><br>
+        <input type="checkbox" id="material1" name="material[]" value="Material 1">
+        <label for="material1">Debit Card</label><br>
+        <input type="checkbox" id="material2" name="material[]" value="Material 2">
+        <label for="material2">Credit Card</label><br>
+        <input type="checkbox" id="material3" name="material[]" value="Material 3">
+        <label for="material3">Cheque Book</label><br>
+        <div class="button">
+            <input type="submit"  class="btn btn-primary" value="Register">
+             <a class="btn btn-primary" href="{% url 'banking_app:logout' %}">Logout</a>
+        </div>
+
+    </form>
+
+
+  </div>
+</div>
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+      .register-box {
+    background-color: #f8f9fa; /* Light background color */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+
+      .register-box h2 {
+    text-align: center;
+    }
+      .register-box form {
+    margin-top: 15px;
+}
+</style>
+    <script>
+        // Define branch data for each district
+        const branchesByDistrict = {
+            district1: ["Varkala", "Kazhakootam", "Veli"],
+            district2: ["Edapally", "Aluva", "Kochi"],
+            district3: ["Kadakal", "Kundra", "Neeravil"],
+            district4: ["Bathery", "Kalpetta", "Manandhavadi"],
+            district5: ["Paala", "Erattupetta", "Vaikom"],
+            district6: ["Vadakara", "Vadakara", "Kunnamangalam"]
+        };
+
+        function populateBranches() {
+            // Get selected district
+            const selectedDistrict = document.getElementById("district").value;
+
+            // Get the branch dropdown element
+            const branchDropdown = document.getElementById("branch");
+
+            // Clear existing options
+            branchDropdown.innerHTML = '<option value="" selected disabled>Select Branch</option>';
+
+            // Populate branches based on the selected district
+            if (selectedDistrict && branchesByDistrict[selectedDistrict]) {
+                branchesByDistrict[selectedDistrict].forEach(branch => {
+                    const option = document.createElement("option");
+                    option.value = branch;
+                    option.text = branch;
+                    branchDropdown.appendChild(option);
+                });
+            }
+        }
+    </script>
+{% endblock %}

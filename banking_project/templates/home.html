@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+.my_image {
+    width: 100%;
+    height: 200%;
+}
+</style>
+
+<body>
+    <div>
+        <a class="btn btn-primary" href="{% url 'banking_app:login' %}">Click here for Login</a>
+        <img class="my_image my_image_padding" src="{% static 'img/banner.jpg' %}" alt="">
+    </div>
+</body>
+</html>
+{% endblock %}
+

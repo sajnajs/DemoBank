@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+ <div class="container mt-4">
+     <div class="alert alert-success">
+         <strong>Form submitted successfully</strong>
+         <p>Thankyou for submitting your form</p>
+     </div>
+    <a href="{% url 'banking_app:home' %}" class="btn btn-primary">Return to home page</a>
+
+ </div>
+{% endblock%}
